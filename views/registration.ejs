@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<% include frontend.ejs %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6 offset-3">
+          <h1 style="text-align:center;">Inregistrare</h1><br/>  
+          <form method="post" action="/users/register">             
+               <div>
+               <input type="text"  class="form-control" name="firstname" placeholder="Prenume" required="required" style="width:49%; display:inline-block;">
+               <input type="text"  class="form-control" name="lastname" placeholder="Nume" required="required" style="width:50%; display:inline-block;">
+               </div>
+              <br>
+               <input type="email"  class="form-control" name="email" placeholder="email" required="required">
+              <br>              
+               <div>
+               <input type="text"  class="form-control" name="job" placeholder="Locul de munca" required="required" style="width:49%; display:inline-block;">
+               <input type="text"  class="form-control" name="position" placeholder="Pozitia ocupata" required="required" style="width:50%; display:inline-block;">
+               </div>
+              <br>
+               <label>Data nasterii:</label>
+               <input type="date" class="form-control" name="birthday" placeholder="Zi de nastere" required="required">               
+              <br>
+              <input type="password" class="form-control" name="password" placeholder="Parola" required="required">
+              <br>             
+               <input type="text" class="form-control" name="phone" placeholder="Numar de telefon" required="required" ><br/>
+               <select class="form-control"  name="adminrole" style="width:40%; display:inline-block;" >
+                 <option value="novalue">Selectati rolul utilizatorului</option>
+                 <option value="admin">Administrator</option>
+                 <option value="ordinary">Membru</option>
+              </select>
+               <br/><br/>
+               
+              <button type="submit" class="btn btn-block" style="background-color:#8B0000; color:white;" >Inregistrare</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
