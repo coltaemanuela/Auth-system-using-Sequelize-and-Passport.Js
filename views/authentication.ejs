@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<% include frontend.ejs %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6 offset-3">
+          <h1 style="text-align:center;">Autentificare</h1><br/>  
+          <form method="post" action="/users/login">                     
+              <input type="text"  class="form-control" name="username" placeholder="email" required="required">
+              <br>              
+              <input type="password" class="form-control" name="password" placeholder="Parola" required="required">
+              <br>             
+               <br/>               
+              <button type="submit" class="btn btn-block" style="background-color:#8B0000; color:white;" >Authentificare</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
