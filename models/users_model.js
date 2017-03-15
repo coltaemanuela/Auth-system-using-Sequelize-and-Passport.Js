@@ -1,4 +1,4 @@
-var EventUser = require('./event_user_model.js');
+//var EventUser = require('./event_user_model.js');
 //_____________________________________________________Init & Config Sequelize___________________________________________________
 
 const Sequelize = require("sequelize");
@@ -16,7 +16,7 @@ const sequelize = new Sequelize('millesime_admin', 'root', '', {
 var User = sequelize.define('user', {
   userid: {
     type: Sequelize.STRING,
-    primaryKey: true, 
+    primaryKey: true,
     //autoIncrement: true,
   //  allowNull: false
     },
@@ -26,9 +26,9 @@ var User = sequelize.define('user', {
   lastName: {
     type: Sequelize.STRING
   },
-  password: { 
+  password: {
     type: Sequelize.STRING,
-   allowNull: false, 
+   allowNull: false,
   //   set: function(v){
   //      this.setDataValues(encyptPassword(v));
   //},
@@ -68,7 +68,7 @@ var User = sequelize.define('user', {
   //    key: "user_id"
   //  }
   //},
-  //  
+  //
 }, {
   freezeTableName: true // Model tableName will be the same as the model name
 });
@@ -97,7 +97,7 @@ User.sync({force:true}).then(function () { //sync only creates table; cannot upd
     paidCurrentFee: true,
     LastFeePayDate: new Date(2017, 2,14),
     activeAccount:true,
-    eventuser_id:1    
+    eventuser_id:1
   });
 }).then(c => {
     console.log("User Created", c.toJSON());
