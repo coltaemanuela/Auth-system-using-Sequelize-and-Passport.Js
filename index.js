@@ -7,30 +7,32 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var passportlocal= require('passport-local');
 var passportsession= require('passport-session');
-
+var User = require('./models/users_model.js');
 
 passport.use(new LocalStrategy(
-  function(email, password, done) {
-    User.findOne({ email: email }, function (err, user) {
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
-        return done(null, false);
+        return done(null, false, { message: 'Incorrect username.' });
       }
-      if (user.password != password) {
-        return done(null, false);
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
     });
   }
 ));
 
+
 passport.serializeUser(function(user, done) {
-  done(null, user.userid);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(userid, done) {
-  User.findById(userid, function(err, user) {
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
     done(err, user);
+    console.log(id);
   });
 });
 

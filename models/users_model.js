@@ -20,7 +20,7 @@ var User = sequelize.define('user', {
     //autoIncrement: true,
   //  allowNull: false
     },
-  firstName: {
+  username: {
     type: Sequelize.STRING,
   },
   lastName: {
@@ -85,7 +85,7 @@ var User = sequelize.define('user', {
 User.sync({force:true}).then(function () { //sync only creates table; cannot update them  //detele  force: true when in production
   return User.create({
     userid:1,
-    firstName: 'firstname',
+    username: 'username',
     lastName: 'Lastname',
     password: 'parola',
     birthday: new Date(1995, 9, 13),
