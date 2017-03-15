@@ -34,11 +34,11 @@ router.get('/register',function(req,res){
 router.post('/register', function(req, res) {
    var email = req.body.email;
     var password = req.body.password;
-    
+
  console.log(req.body);
 
  User.findAll().then(user => {
-    usersNumber = user.length;   
+    usersNumber = user.length;
     console.log('Numarul de useri inainte de inserare:', user.length );
 
 	User.sync().then(function (){
@@ -46,13 +46,13 @@ router.post('/register', function(req, res) {
 	    userid:usersNumber+1,
 	    email: email,
       	password: password
-      
+
 		 });
 	}).then(c => {
 	    console.log("User Created ", c.toJSON());
 	     res.redirect('/users');
 	}).catch(e => console.error(e));
-	
+
  });
 });
 
@@ -62,7 +62,7 @@ router.get('/login',function(req,res){
 
 //router.post('/login', function(req, res, next) {
 //    console.log(req.url);  // '/login'
-//    console.log(req.body); // { username: 'username', password: 'parola' } 
+//    console.log(req.body); // { username: 'username', password: 'parola' }
 //    passport.authenticate('local', function(err, user, info) {
 //        console.log("authenticate");
 //        console.log('error:',err);
@@ -71,9 +71,9 @@ router.get('/login',function(req,res){
 //    })(req, res, next);
 //});
 
-router.post('/login', passport.authenticate('local', { 
-	successRedirect: '/events',                    
-	failureRedirect: '/users/register' 
+router.post('/login', passport.authenticate('local', {
+	successRedirect: '/events',
+	failureRedirect: '/users/register'
 	}));
 
 

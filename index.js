@@ -11,35 +11,43 @@ var User = require('./models/users_model.js');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
+    User.findOne({ username: username }).then(function(user) {
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
+      if (password !== user.password) {
         return done(null, false, { message: 'Incorrect password.' });
       }
-      return done(null, user);
+      //if (!user.validPassword(password)) {
+      //  return done(null, false, { message: 'Incorrect password.' });
+      //}
+      done(null, user.toJSON());
+    }).catch(err => {
+      console.error(err);
+      done(err);
     });
   }
 ));
 
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-    console.log(id);
-  });
-});
-
 var users= require('./controllers/users.js');
 var router = express.Router();
 
 var app = express();
+
+passport.serializeUser(function(user, done) {
+  done(null, user.userid);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findOne({ userid: id }, function(err, user) {
+    done(err, user);
+    console.log(id);
+  });
+});
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //-------------------------------- View engine setup------------------------------------------------------------------------------
@@ -51,6 +59,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/users', users);
+app.get("/session", (req, res) => {
+    debugger
+    res.json(req.session);
+});
 
 
 app.use(session({
@@ -62,10 +74,6 @@ app.use(session({
     activeDuration: 15 * 60 * 1000
 }));
 
-
-// Passport init
-app.use(passport.initialize());
-app.use(passport.session());
 
 //------------------------------------------------Routes---------------------------------------------------------------------------
 app.get('/', function (req, res) {
