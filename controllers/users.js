@@ -60,17 +60,6 @@ router.get('/login',function(req,res){
 	res.render('authentication');
 });
 
-//router.post('/login', function(req, res, next) {
-//    console.log(req.url);  // '/login'
-//    console.log(req.body); // { username: 'username', password: 'parola' }
-//    passport.authenticate('local', function(err, user, info) {
-//        console.log("authenticate");
-//        console.log('error:',err);
-//        console.log('user:',user);
-//        console.log('info:',info);
-//    })(req, res, next);
-//});
-
 router.post('/login', passport.authenticate('local', {
 	successRedirect: '/events',
 	failureRedirect: '/users/register'
