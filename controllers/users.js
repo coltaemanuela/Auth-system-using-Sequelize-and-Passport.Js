@@ -32,27 +32,20 @@ router.get('/register',function(req,res){
 });
 
 router.post('/register', function(req, res) {
-   var email = req.body.email;
-    var password = req.body.password;
-
- console.log(req.body);
+ var email = req.body.email;
+ var password = req.body.password;
 
  User.findAll().then(user => {
-    usersNumber = user.length;
-    console.log('Numarul de useri inainte de inserare:', user.length );
-
+    	usersNumber = user.length;
 	User.sync().then(function (){
 	  return User.create({
-	    userid:usersNumber+1,
-	    email: email,
-      	password: password
-
-		 });
+	    	userid:usersNumber+1,
+	    	email: email,
+	 	password: password
+	});
 	}).then(c => {
-	    console.log("User Created ", c.toJSON());
 	     res.redirect('/users');
 	}).catch(e => console.error(e));
-
  });
 });
 
